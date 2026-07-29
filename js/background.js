@@ -22,9 +22,55 @@
       y: Math.random() * height,
       vx: (Math.random() - 0.5) * 0.4,
       vy: (Math.random() - 0.5) * 0.4,
-      r: 1 + Math.random() * 1.6,
+      r: IS_LOW_POWER ? (2.5 + Math.random() * 1.5) : (3 + Math.random() * 3),
       color: COLORS[Math.floor(Math.random() * COLORS.length)]
     };
+  }
+
+  function drawAnt(p, angle) {
+    var s = p.r;
+
+    ctx.save();
+    ctx.translate(p.x, p.y);
+    ctx.rotate(angle);
+
+    if (GLOW) {
+      ctx.shadowBlur = 6;
+      ctx.shadowColor = p.color + '1)';
+    }
+
+    ctx.strokeStyle = p.color + '0.85)';
+    ctx.lineWidth = Math.max(0.6, s * 0.14);
+
+    var legX = [-s * 0.6, 0, s * 0.55];
+    for (var li = 0; li < legX.length; li++) {
+      ctx.beginPath();
+      ctx.moveTo(legX[li], 0);
+      ctx.lineTo(legX[li] - s * 0.35, -s * 0.95);
+      ctx.moveTo(legX[li], 0);
+      ctx.lineTo(legX[li] - s * 0.35, s * 0.95);
+      ctx.stroke();
+    }
+
+    ctx.beginPath();
+    ctx.moveTo(s * 1.25, -s * 0.15);
+    ctx.lineTo(s * 1.9, -s * 0.6);
+    ctx.moveTo(s * 1.25, s * 0.15);
+    ctx.lineTo(s * 1.9, s * 0.6);
+    ctx.stroke();
+
+    ctx.fillStyle = p.color + '0.95)';
+    ctx.beginPath();
+    ctx.ellipse(-s * 0.95, 0, s * 0.85, s * 0.55, 0, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.beginPath();
+    ctx.ellipse(0, 0, s * 0.45, s * 0.38, 0, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.beginPath();
+    ctx.ellipse(s * 0.95, 0, s * 0.4, s * 0.32, 0, 0, Math.PI * 2);
+    ctx.fill();
+
+    ctx.restore();
   }
 
   function resize() {
@@ -53,18 +99,13 @@
       if (p.x < 0 || p.x > width) p.vx *= -1;
       if (p.y < 0 || p.y > height) p.vy *= -1;
 
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-      ctx.fillStyle = p.color + '0.9)';
-      if (GLOW) {
-        ctx.shadowBlur = 8;
-        ctx.shadowColor = p.color + '1)';
-      }
-      ctx.fill();
+      var angle = Math.atan2(p.vy, p.vx);
+      drawAnt(p, angle);
     }
 
+    ctx.shadowBlur = 0;
+
     if (GLOW) {
-      ctx.shadowBlur = 0;
       for (var a = 0; a < particles.length; a++) {
         for (var b = a + 1; b < particles.length; b++) {
           var p1 = particles[a], p2 = particles[b];
