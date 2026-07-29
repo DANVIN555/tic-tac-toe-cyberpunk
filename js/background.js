@@ -9,7 +9,8 @@
   var width = 0;
   var height = 0;
 
-  var COLORS = ['rgba(252,238,10,', 'rgba(252,238,10,', 'rgba(255,46,46,', 'rgba(5,247,242,'];
+  var COLORS = ['rgba(255,157,0,', 'rgba(255,157,0,', 'rgba(138,255,0,', 'rgba(5,247,242,'];
+  var MAX_SPEED = 0.55;
   var IS_LOW_POWER = window.matchMedia('(pointer: coarse)').matches || window.innerWidth < 640;
   var PARTICLE_COUNT = IS_LOW_POWER ? 16 : 46;
   var LINK_DIST = IS_LOW_POWER ? 0 : 130;
@@ -37,6 +38,15 @@
 
     for (var i = 0; i < particles.length; i++) {
       var p = particles[i];
+
+      p.vx += (Math.random() - 0.5) * 0.08;
+      p.vy += (Math.random() - 0.5) * 0.08;
+      var speed = Math.hypot(p.vx, p.vy);
+      if (speed > MAX_SPEED) {
+        p.vx = (p.vx / speed) * MAX_SPEED;
+        p.vy = (p.vy / speed) * MAX_SPEED;
+      }
+
       p.x += p.vx;
       p.y += p.vy;
 
@@ -64,7 +74,7 @@
             ctx.beginPath();
             ctx.moveTo(p1.x, p1.y);
             ctx.lineTo(p2.x, p2.y);
-            ctx.strokeStyle = 'rgba(252,238,10,' + (0.12 * (1 - dist / LINK_DIST)) + ')';
+            ctx.strokeStyle = 'rgba(255,157,0,' + (0.12 * (1 - dist / LINK_DIST)) + ')';
             ctx.lineWidth = 1;
             ctx.stroke();
           }

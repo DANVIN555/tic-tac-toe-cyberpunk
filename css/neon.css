@@ -24,12 +24,12 @@ h1, h2 {
 
 h1 {
   font-size: clamp(1.6rem, 6vw, 2.6rem);
-  color: var(--neon-yellow);
+  color: var(--neon-amber);
   text-shadow:
-    0 0 5px var(--neon-yellow),
-    0 0 10px var(--neon-yellow),
-    0 0 24px var(--neon-yellow),
-    0 0 48px rgba(252, 238, 10, 0.6);
+    0 0 5px var(--neon-amber),
+    0 0 10px var(--neon-amber),
+    0 0 24px var(--neon-amber),
+    0 0 48px rgba(255, 157, 0, 0.6);
 }
 
 h2 {
@@ -43,8 +43,8 @@ h2 {
 }
 
 #result-title.state-win {
-  color: var(--neon-yellow);
-  text-shadow: 0 0 6px var(--neon-yellow), 0 0 14px var(--neon-yellow), 0 0 30px var(--neon-yellow);
+  color: var(--neon-amber);
+  text-shadow: 0 0 6px var(--neon-amber), 0 0 14px var(--neon-amber), 0 0 30px var(--neon-amber);
 }
 
 #result-title.state-lose {
@@ -58,50 +58,50 @@ h2 {
 }
 
 #result-title.state-o {
-  color: var(--neon-red);
-  text-shadow: 0 0 6px var(--neon-red), 0 0 14px var(--neon-red), 0 0 30px var(--neon-red);
+  color: var(--neon-green);
+  text-shadow: 0 0 6px var(--neon-green), 0 0 14px var(--neon-green), 0 0 30px var(--neon-green);
 }
 
 /* ---------- Neon panels / interactive glow ---------- */
 .hud-player[data-symbol="X"] {
-  box-shadow: 0 0 8px rgba(252, 238, 10, 0.15);
+  box-shadow: 0 0 8px rgba(255, 157, 0, 0.15);
 }
 
 .hud-player[data-symbol="O"] {
-  box-shadow: 0 0 8px rgba(255, 46, 46, 0.15);
+  box-shadow: 0 0 8px rgba(138, 255, 0, 0.15);
 }
 
 .hud-player.active[data-symbol="X"] {
-  box-shadow: 0 0 10px var(--neon-yellow), inset 0 0 10px rgba(252, 238, 10, 0.4);
+  box-shadow: 0 0 10px var(--neon-amber), inset 0 0 10px rgba(255, 157, 0, 0.4);
 }
 
 .hud-player.active[data-symbol="O"] {
-  box-shadow: 0 0 10px var(--neon-red), inset 0 0 10px rgba(255, 46, 46, 0.4);
+  box-shadow: 0 0 10px var(--neon-green), inset 0 0 10px rgba(138, 255, 0, 0.4);
 }
 
 .cell {
-  box-shadow: 0 0 6px rgba(252, 238, 10, 0.12), inset 0 0 6px rgba(252, 238, 10, 0.08);
+  box-shadow: 0 0 6px rgba(255, 157, 0, 0.12), inset 0 0 6px rgba(255, 157, 0, 0.08);
   transition: box-shadow 0.2s, border-color 0.2s;
 }
 
 .cell:not(:disabled):hover {
-  border-color: var(--neon-yellow);
-  box-shadow: 0 0 14px var(--neon-yellow), inset 0 0 14px rgba(252, 238, 10, 0.25);
+  border-color: var(--neon-amber);
+  box-shadow: 0 0 14px var(--neon-amber), inset 0 0 14px rgba(255, 157, 0, 0.25);
 }
 
 .cell:focus-visible {
   outline: none;
-  border-color: var(--neon-yellow);
+  border-color: var(--neon-amber);
 }
 
 .cell.filled-x {
-  border-color: var(--neon-yellow);
-  box-shadow: 0 0 10px rgba(252, 238, 10, 0.3), inset 0 0 10px rgba(252, 238, 10, 0.15);
+  border-color: var(--neon-amber);
+  box-shadow: 0 0 10px rgba(255, 157, 0, 0.3), inset 0 0 10px rgba(255, 157, 0, 0.15);
 }
 
 .cell.filled-o {
-  border-color: var(--neon-red);
-  box-shadow: 0 0 10px rgba(255, 46, 46, 0.3), inset 0 0 10px rgba(255, 46, 46, 0.15);
+  border-color: var(--neon-green);
+  box-shadow: 0 0 10px rgba(138, 255, 0, 0.3), inset 0 0 10px rgba(138, 255, 0, 0.15);
 }
 
 .cell.win-cell {
@@ -110,18 +110,18 @@ h2 {
 }
 
 .mark-x {
-  stroke: var(--neon-yellow);
+  stroke: var(--neon-amber);
   stroke-width: 10;
   stroke-linecap: round;
   fill: none;
-  filter: drop-shadow(0 0 6px var(--neon-yellow));
+  filter: drop-shadow(0 0 6px var(--neon-amber));
 }
 
 .mark-o {
-  stroke: var(--neon-red);
+  stroke: var(--neon-green);
   stroke-width: 10;
   fill: none;
-  filter: drop-shadow(0 0 6px var(--neon-red));
+  filter: drop-shadow(0 0 6px var(--neon-green));
 }
 
 /* ---------- Glitch text ---------- */
@@ -143,7 +143,7 @@ h2 {
 }
 
 .glitch::before {
-  color: var(--neon-red);
+  color: var(--neon-green);
   clip-path: inset(0 0 60% 0);
   transform: translate(-2px, -1px);
   animation: glitch-shift-1 3.4s infinite steps(2, end);

@@ -60,8 +60,38 @@
     return bestMoves[Math.floor(Math.random() * bestMoves.length)];
   }
 
+  function getRandomMove(board) {
+    var empties = Game.getEmptyIndices(board);
+    if (empties.length === 0) return -1;
+    return empties[Math.floor(Math.random() * empties.length)];
+  }
+
+  function findImmediateWin(board, player) {
+    var empties = Game.getEmptyIndices(board);
+    for (var i = 0; i < empties.length; i++) {
+      var idx = empties[i];
+      board[idx] = player;
+      var winner = Game.checkWinner(board).winner;
+      board[idx] = null;
+      if (winner === player) return idx;
+    }
+    return -1;
+  }
+
+  function getHeuristicMove(board, aiPlayer, humanPlayer) {
+    var winMove = findImmediateWin(board, aiPlayer);
+    if (winMove !== -1) return winMove;
+
+    var blockMove = findImmediateWin(board, humanPlayer);
+    if (blockMove !== -1) return blockMove;
+
+    return getRandomMove(board);
+  }
+
   window.CTTT = window.CTTT || {};
   window.CTTT.AI = {
-    getBestMove: getBestMove
+    getBestMove: getBestMove,
+    getHeuristicMove: getHeuristicMove,
+    getRandomMove: getRandomMove
   };
 })();

@@ -15,6 +15,9 @@
     dom.aiOptions = document.getElementById('ai-options');
     dom.btnSymbolX = document.getElementById('btn-symbol-x');
     dom.btnSymbolO = document.getElementById('btn-symbol-o');
+    dom.btnDiffEasy = document.getElementById('btn-diff-easy');
+    dom.btnDiffMedium = document.getElementById('btn-diff-medium');
+    dom.btnDiffHard = document.getElementById('btn-diff-hard');
     dom.btnStartAi = document.getElementById('btn-start-ai');
 
     dom.board = document.getElementById('board');

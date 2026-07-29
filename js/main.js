@@ -9,6 +9,7 @@
   var state = Game.createState();
   var aiTimeoutId = null;
   var pendingAiSymbol = 'X';
+  var pendingDifficulty = 'hard';
 
   function clearAiTimeout() {
     if (aiTimeoutId) {
@@ -105,7 +106,14 @@
     aiTimeoutId = setTimeout(function () {
       aiTimeoutId = null;
       if (state.gameOver) return;
-      var idx = AI.getBestMove(state.board, state.aiSymbol, state.humanSymbol);
+      var idx;
+      if (state.difficulty === 'easy') {
+        idx = AI.getRandomMove(state.board);
+      } else if (state.difficulty === 'medium') {
+        idx = AI.getHeuristicMove(state.board, state.aiSymbol, state.humanSymbol);
+      } else {
+        idx = AI.getBestMove(state.board, state.aiSymbol, state.humanSymbol);
+      }
       if (idx === -1) return;
       Game.makeMove(state.board, idx, state.aiSymbol);
       afterMove(idx, state.aiSymbol);
@@ -132,6 +140,7 @@
     } else {
       state.humanSymbol = pendingAiSymbol;
       state.aiSymbol = pendingAiSymbol === 'X' ? 'O' : 'X';
+      state.difficulty = pendingDifficulty;
     }
     UI.showScreen('game');
     resetRound();
@@ -167,6 +176,20 @@
       pendingAiSymbol = 'O';
       dom.btnSymbolO.classList.add('selected');
       dom.btnSymbolX.classList.remove('selected');
+    });
+
+    var difficultyButtons = [dom.btnDiffEasy, dom.btnDiffMedium, dom.btnDiffHard];
+    var difficultyValues = { };
+    difficultyValues[dom.btnDiffEasy.id] = 'easy';
+    difficultyValues[dom.btnDiffMedium.id] = 'medium';
+    difficultyValues[dom.btnDiffHard.id] = 'hard';
+
+    difficultyButtons.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        pendingDifficulty = difficultyValues[btn.id];
+        difficultyButtons.forEach(function (b) { b.classList.remove('selected'); });
+        btn.classList.add('selected');
+      });
     });
 
     dom.btnStartAi.addEventListener('click', function () {

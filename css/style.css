@@ -13,12 +13,13 @@ html, body {
 :root {
   --neon-cyan: #05f7f2;
   --neon-purple: #9d00ff;
-  --neon-yellow: #fcee0a;
+  --neon-amber: #ff9d00;
+  --neon-green: #8aff00;
   --neon-red: #ff2e4d;
 
-  --bg-deep: #050400;
-  --bg-panel: rgba(18, 15, 0, 0.72);
-  --border-dim: rgba(252, 238, 10, 0.35);
+  --bg-deep: #0d0703;
+  --bg-panel: rgba(32, 19, 6, 0.74);
+  --border-dim: rgba(255, 157, 0, 0.35);
 
   --font-display: 'Orbitron', 'Rajdhani', 'Courier New', monospace;
   --font-body: 'Rajdhani', 'Courier New', monospace;
@@ -26,7 +27,7 @@ html, body {
 
 body {
   background: var(--bg-deep);
-  color: #f5f0d8;
+  color: #f2e6c8;
   font-family: var(--font-body);
   overflow-x: hidden;
   min-height: 100vh;
@@ -61,8 +62,8 @@ button:disabled {
   inset: -50% -50% 0 -50%;
   z-index: 1;
   background-image:
-    linear-gradient(rgba(252, 238, 10, 0.18) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(252, 238, 10, 0.18) 1px, transparent 1px);
+    linear-gradient(rgba(255, 157, 0, 0.18) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 157, 0, 0.18) 1px, transparent 1px);
   background-size: 48px 48px;
   transform: perspective(400px) rotateX(65deg);
   transform-origin: bottom;
@@ -140,8 +141,20 @@ button:disabled {
   gap: 14px;
 }
 
+.difficulty-choice {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.difficulty-choice .btn-small {
+  padding: 8px 14px;
+  font-size: 0.7rem;
+}
+
 .btn.selected {
-  background: var(--neon-yellow);
+  background: var(--neon-amber);
   color: var(--bg-deep);
 }
 
@@ -152,16 +165,16 @@ button:disabled {
   font-weight: 700;
   letter-spacing: 0.15em;
   padding: 14px 32px;
-  border: 2px solid var(--neon-yellow);
-  color: var(--neon-yellow);
-  background: rgba(252, 238, 10, 0.05);
+  border: 2px solid var(--neon-amber);
+  color: var(--neon-amber);
+  background: rgba(255, 157, 0, 0.05);
   clip-path: polygon(12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%, 0 12px);
   transition: background 0.2s, color 0.2s, transform 0.15s;
   width: 100%;
 }
 
 .btn:hover:not(:disabled), .btn:focus-visible:not(:disabled) {
-  background: var(--neon-yellow);
+  background: var(--neon-amber);
   color: var(--bg-deep);
   transform: translateY(-2px);
 }
@@ -175,16 +188,16 @@ button:disabled {
 }
 
 .btn-primary {
-  border-color: var(--neon-yellow);
+  border-color: var(--neon-amber);
   color: var(--bg-deep);
-  background: var(--neon-yellow);
-  box-shadow: 0 0 14px var(--neon-yellow);
+  background: var(--neon-amber);
+  box-shadow: 0 0 14px var(--neon-amber);
 }
 
 .btn-primary:hover:not(:disabled), .btn-primary:focus-visible:not(:disabled) {
-  background: var(--neon-yellow);
+  background: var(--neon-amber);
   color: var(--bg-deep);
-  box-shadow: 0 0 22px var(--neon-yellow), 0 0 44px rgba(252, 238, 10, 0.6);
+  box-shadow: 0 0 22px var(--neon-amber), 0 0 44px rgba(255, 157, 0, 0.6);
 }
 
 .btn-secondary {
@@ -249,8 +262,8 @@ button:disabled {
   transition: box-shadow 0.3s, border-color 0.3s;
 }
 
-.hud-player[data-symbol="X"] { color: var(--neon-yellow); }
-.hud-player[data-symbol="O"] { color: var(--neon-red); }
+.hud-player[data-symbol="X"] { color: var(--neon-amber); }
+.hud-player[data-symbol="O"] { color: var(--neon-green); }
 
 .hud-player.active {
   border-color: currentColor;
@@ -278,7 +291,7 @@ button:disabled {
   flex-direction: column;
   align-items: center;
   gap: 2px;
-  color: var(--neon-yellow);
+  color: var(--neon-amber);
   font-family: var(--font-display);
 }
 
@@ -303,18 +316,19 @@ button:disabled {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(3, 1fr);
-  gap: 10px;
-  width: min(360px, 80vw);
-  height: min(360px, 80vw);
+  gap: 16px;
+  width: min(380px, 80vw);
+  height: min(380px, 80vw);
 }
 
 .cell {
   position: relative;
   border: 1px solid var(--border-dim);
-  background: rgba(252, 238, 10, 0.03);
+  background: rgba(255, 157, 0, 0.03);
   display: flex;
   align-items: center;
   justify-content: center;
+  clip-path: polygon(25% 4%, 75% 4%, 98% 50%, 75% 96%, 25% 96%, 2% 50%);
 }
 
 .cell svg {
