@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TIC // TAC // TOE</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/neon.css">
+<link rel="stylesheet" href="css/animations.css">
+</head>
+<body>
+
+<canvas id="bg-canvas"></canvas>
+<div class="cyber-grid"></div>
+<div class="scanlines"></div>
+<div class="vignette"></div>
+
+<button id="mute-btn" class="icon-btn" aria-label="Toggle sound" title="Toggle sound">
+  <span class="icon-sound-on">🔊</span>
+  <span class="icon-sound-off">🔇</span>
+</button>
+
+<main id="app">
+
+  <section id="screen-menu" class="screen screen--active">
+    <h1 class="glitch" data-text="КРЕСТИКИ • НОЛИКИ">КРЕСТИКИ • НОЛИКИ</h1>
+    <p class="subtitle">NIGHT CITY GRID // v2.0.77</p>
+
+    <div class="menu-panel">
+      <button class="btn btn-primary" id="btn-mode-pvp">
+        <span class="btn-glow"></span>
+        2 ИГРОКА
+      </button>
+
+      <button class="btn btn-primary" id="btn-mode-ai">
+        <span class="btn-glow"></span>
+        VS AI
+      </button>
+
+      <div id="ai-options" class="ai-options hidden">
+        <p class="ai-options-label">ВЫБЕРИ СИМВОЛ:</p>
+        <div class="symbol-choice">
+          <button class="btn btn-small selected" id="btn-symbol-x" data-symbol="X">X</button>
+          <button class="btn btn-small" id="btn-symbol-o" data-symbol="O">O</button>
+        </div>
+        <button class="btn btn-secondary" id="btn-start-ai">НАЧАТЬ</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="screen-game" class="screen">
+    <div class="hud">
+      <div class="hud-player" id="hud-player-x" data-symbol="X">
+        <span class="hud-label">PLAYER</span>
+        <span class="hud-symbol">X</span>
+        <span class="hud-score" id="score-x">0</span>
+      </div>
+      <div class="hud-center">
+        <span class="hud-vs">VS</span>
+        <span class="hud-draws-label">DRAWS</span>
+        <span class="hud-score" id="score-draw">0</span>
+      </div>
+      <div class="hud-player" id="hud-player-o" data-symbol="O">
+        <span class="hud-label">PLAYER</span>
+        <span class="hud-symbol">O</span>
+        <span class="hud-score" id="score-o">0</span>
+      </div>
+    </div>
+
+    <div class="board-wrap">
+      <div id="board" class="board" role="grid" aria-label="Игровое поле 3 на 3">
+        <button class="cell" data-index="0" role="gridcell" aria-label="Клетка 1"></button>
+        <button class="cell" data-index="1" role="gridcell" aria-label="Клетка 2"></button>
+        <button class="cell" data-index="2" role="gridcell" aria-label="Клетка 3"></button>
+        <button class="cell" data-index="3" role="gridcell" aria-label="Клетка 4"></button>
+        <button class="cell" data-index="4" role="gridcell" aria-label="Клетка 5"></button>
+        <button class="cell" data-index="5" role="gridcell" aria-label="Клетка 6"></button>
+        <button class="cell" data-index="6" role="gridcell" aria-label="Клетка 7"></button>
+        <button class="cell" data-index="7" role="gridcell" aria-label="Клетка 8"></button>
+        <button class="cell" data-index="8" role="gridcell" aria-label="Клетка 9"></button>
+        <svg id="win-line-svg" class="win-line-svg" aria-hidden="true">
+          <line id="win-line" x1="0" y1="0" x2="0" y2="0"></line>
+        </svg>
+      </div>
+    </div>
+
+    <div class="game-controls">
+      <button class="btn btn-small" id="btn-restart">RESTART</button>
+      <button class="btn btn-small" id="btn-menu">MENU</button>
+    </div>
+  </section>
+
+  <div id="screen-result" class="result-overlay">
+    <div class="result-panel">
+      <h2 id="result-title" class="glitch" data-text="YOU WIN">YOU WIN</h2>
+      <div class="result-actions">
+        <button class="btn btn-primary" id="btn-play-again">
+          <span class="btn-glow"></span>
+          PLAY AGAIN
+        </button>
+        <button class="btn btn-secondary" id="btn-result-menu">MENU</button>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<script src="js/game.js"></script>
+<script src="js/ai.js"></script>
+<script src="js/sound.js"></script>
+<script src="js/background.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
