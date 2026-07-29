@@ -10,8 +10,10 @@
   var height = 0;
 
   var COLORS = ['rgba(252,238,10,', 'rgba(252,238,10,', 'rgba(255,46,46,', 'rgba(5,247,242,'];
-  var PARTICLE_COUNT = 46;
-  var LINK_DIST = 130;
+  var IS_LOW_POWER = window.matchMedia('(pointer: coarse)').matches || window.innerWidth < 640;
+  var PARTICLE_COUNT = IS_LOW_POWER ? 16 : 46;
+  var LINK_DIST = IS_LOW_POWER ? 0 : 130;
+  var GLOW = !IS_LOW_POWER;
 
   function makeParticle() {
     return {
@@ -44,24 +46,28 @@
       ctx.beginPath();
       ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
       ctx.fillStyle = p.color + '0.9)';
-      ctx.shadowBlur = 8;
-      ctx.shadowColor = p.color + '1)';
+      if (GLOW) {
+        ctx.shadowBlur = 8;
+        ctx.shadowColor = p.color + '1)';
+      }
       ctx.fill();
     }
 
-    ctx.shadowBlur = 0;
-    for (var a = 0; a < particles.length; a++) {
-      for (var b = a + 1; b < particles.length; b++) {
-        var p1 = particles[a], p2 = particles[b];
-        var dx = p1.x - p2.x, dy = p1.y - p2.y;
-        var dist = Math.sqrt(dx * dx + dy * dy);
-        if (dist < LINK_DIST) {
-          ctx.beginPath();
-          ctx.moveTo(p1.x, p1.y);
-          ctx.lineTo(p2.x, p2.y);
-          ctx.strokeStyle = 'rgba(252,238,10,' + (0.12 * (1 - dist / LINK_DIST)) + ')';
-          ctx.lineWidth = 1;
-          ctx.stroke();
+    if (GLOW) {
+      ctx.shadowBlur = 0;
+      for (var a = 0; a < particles.length; a++) {
+        for (var b = a + 1; b < particles.length; b++) {
+          var p1 = particles[a], p2 = particles[b];
+          var dx = p1.x - p2.x, dy = p1.y - p2.y;
+          var dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < LINK_DIST) {
+            ctx.beginPath();
+            ctx.moveTo(p1.x, p1.y);
+            ctx.lineTo(p2.x, p2.y);
+            ctx.strokeStyle = 'rgba(252,238,10,' + (0.12 * (1 - dist / LINK_DIST)) + ')';
+            ctx.lineWidth = 1;
+            ctx.stroke();
+          }
         }
       }
     }

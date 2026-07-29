@@ -90,3 +90,17 @@
   0%, 100% { filter: brightness(1); }
   50% { filter: brightness(1.15); }
 }
+
+/* ---------- Lighter effects on touch/small screens ---------- */
+@media (pointer: coarse), (max-width: 640px) {
+  .cyber-grid { animation: none; }
+  .scanlines { animation: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
